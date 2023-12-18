@@ -1,0 +1,38 @@
+.form {
+  width: 400px;
+}
+
+.input-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.input-groups input {
+  padding: 1rem;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+
+  background-color: #cacaca;
+}
+
+.input-groups input:focus {
+  background-color: white;
+  border: 1px solid #cacaca;
+}
+
+.submit {
+  background: black;
+  padding: 10px;
+  outline: none;
+  border-radius: 8px;
+  color: #cacaca;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.submit:hover {
+  background-color: white;
+  color: black;
+}
