@@ -47,6 +47,7 @@ tbody td input:focus {
 
 .action button {
   border: none;
+  margin: 2px;
   outline: none;
   padding: 4px;
   color:white;
