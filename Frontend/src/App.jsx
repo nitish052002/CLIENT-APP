@@ -3,10 +3,11 @@ import "./App.css";
 import ClientForm from "./components/ClientForm";
 import { useEffect, useState } from "react";
 import axios from "axios";
-
+import BASE_URL from "./config";
+ 
 function App() {
   const [clientsData, setClientsData] = useState([]);
-
+  
   const [editableData, setEditableData] = useState({ email: "" });
   const [newData, setNewData] = useState({});
 
@@ -20,7 +21,7 @@ function App() {
 
   const getClients = async () => {
     try {
-      const result = await axios.get("http://localhost:8081/clients");
+      const result = await axios.get(`${BASE_URL}/clients`);
 
       setClientsData(result.data);
     } catch (error) {
@@ -29,8 +30,8 @@ function App() {
   };
 
   const removeClient = async (emailid) => {
-    try {
-      await axios.delete(`http://localhost:8081/clients/${emailid}`);
+    try {       
+      await axios.delete(`${BASE_URL}/clients/${emailid}`);
       window.location.reload();
     } catch (error) {
       console.log(error);
@@ -42,7 +43,7 @@ function App() {
       const client = clientsData.filter(({ email }) => email === emailid);
       const clientEmailId = client[0].email;
 
-      await axios.put(`http://localhost:8081/clients/${clientEmailId}`, data);
+      await axios.put(`${BASE_URL}/clients/${clientEmailId}`, data);
       window.location.reload();
     } catch (error) {
       console.log(error);

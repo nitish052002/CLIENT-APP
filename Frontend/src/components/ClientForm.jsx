@@ -1,6 +1,7 @@
 import "./form.css";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import BASE_URL from "../config";
 
 function ClientForm() {
   const [formaData, setFormData] = useState({});
@@ -8,7 +9,7 @@ function ClientForm() {
   const createClient = async () => {
     try {
       if (formaData) {
-        await axios.post("http://localhost:8081/clients", formaData);
+        await axios.post(`${BASE_URL}/clients/`, formaData);
       }
     } catch (error) {
       console.log(error);
