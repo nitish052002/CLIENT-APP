@@ -11,7 +11,7 @@ app.use(cors());
 
 app.use("/clients", routes);
 
-mongoose.connect(`${process.env.MONGO__URL}`).then(() => {
+mongoose.connect("mongodb+srv://nitish2002:nitish2002@clients.lbuufhg.mongodb.net/clients?retryWrites=true&w=majority").then(() => {
   console.log("DB CONNECTED");
   app.listen(PORT, () => {
     console.log(`server is running on ${PORT}`);
