@@ -4,10 +4,9 @@ import ClientForm from "./components/ClientForm";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import BASE_URL from "./config";
- 
+
 function App() {
   const [clientsData, setClientsData] = useState([]);
-  
   const [editableData, setEditableData] = useState({ email: "" });
   const [newData, setNewData] = useState({});
 
@@ -16,23 +15,36 @@ function App() {
       ...newData,
       [event.target.name]: event.target.value,
     });
-    console.log(newData);
   };
 
   const getClients = async () => {
     try {
       const result = await axios.get(`${BASE_URL}/clients`);
-
       setClientsData(result.data);
     } catch (error) {
       console.log(error);
     }
   };
 
+  const createClient = async (formData) => {
+    try {
+      if (formData) {
+        const result = await axios.post(`${BASE_URL}/clients/`, formData);
+        setClientsData([...clientsData, result.data]);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const removeClient = async (emailid) => {
-    try {       
+    try {
       await axios.delete(`${BASE_URL}/clients/${emailid}`);
-      window.location.reload();
+      const DATA__AFTER__REMOVE = clientsData.filter(
+        ({ email }) => email != emailid
+      );
+      console.log(DATA__AFTER__REMOVE);
+      setClientsData(DATA__AFTER__REMOVE);
     } catch (error) {
       console.log(error);
     }
@@ -42,9 +54,15 @@ function App() {
     try {
       const client = clientsData.filter(({ email }) => email === emailid);
       const clientEmailId = client[0].email;
-
-      await axios.put(`${BASE_URL}/clients/${clientEmailId}`, data);
-      window.location.reload();
+      const result = await axios.put(
+        `${BASE_URL}/clients/${clientEmailId}`,
+        data
+      );
+      const index = clientsData.findIndex(
+        ({ email }) => email === result.data.email
+      );
+      clientsData.splice(index, 1, result.data);
+      setEditableData({});
     } catch (error) {
       console.log(error);
     }
@@ -53,7 +71,6 @@ function App() {
   const editHandler = (data) => {
     setEditableData(data);
     setNewData(data);
-    console.log(data);
   };
 
   useEffect(() => {
@@ -199,7 +216,7 @@ function App() {
           </table>
         </div>
 
-        <ClientForm />
+        <ClientForm createClient={createClient} />
       </div>
     </>
   );

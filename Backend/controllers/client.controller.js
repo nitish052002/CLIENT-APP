@@ -11,10 +11,16 @@ const getAllClients = async (req, res) => {
 
 const createClient = async (req, res) => {
   const { firstname, lastname, email, mobno, project } = req.body;
-  if (firstname === "" || lastname  === "" ||email  === "" || mobno === "" || project  === "" )  {
-    res.status(401).json({message : "All fields are mandatory"})
+  if (
+    firstname === "" ||
+    lastname === "" ||
+    email === "" ||
+    mobno === "" ||
+    project === ""
+  ) {
+    res.status(401).json({ message: "All fields are mandatory" });
   }
-  
+
   const client = {
     firstname: firstname,
     lastname: lastname,
@@ -49,7 +55,7 @@ const updateClient = async (req, res) => {
       { email: emailid },
       { $set: { ...UPCOMING__UPDATED__DATA } }
     );
-    res.send({ message: "Succesfully updated" });
+    res.status.send(UPCOMING__UPDATED__DATA);
   } catch (error) {
     res.status(404).send({ message: error });
   }

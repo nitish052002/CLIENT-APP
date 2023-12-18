@@ -20,11 +20,7 @@ table {
   border-collapse: collapse;
 }
 
-td,
-th,
-tr {
-}
-
+ 
 th {
   background: #cacaca;
 }
@@ -44,13 +40,26 @@ tbody td input {
   width: 100%;
 }
 
+tbody td input:focus {
+  background: white;
+  border: #cacaca;
+}
+
 .action button {
   border: none;
   outline: none;
-  padding: 5px;
-  color: blue;
-  background: transparent;
+  padding: 4px;
+  color:white;
+  background: black;
   cursor: pointer;
+  border-radius: 4px;
+  transition: .3s;
+}
+
+.action button:hover {
+  background-color: white;
+  color: black;
+  border:1px solid black;
 }
 
 

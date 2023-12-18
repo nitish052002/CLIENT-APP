@@ -1,20 +1,8 @@
 import "./form.css";
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import BASE_URL from "../config";
+import React, {useState } from "react";
 
-function ClientForm() {
-  const [formaData, setFormData] = useState({});
-
-  const createClient = async () => {
-    try {
-      if (formaData) {
-        await axios.post(`${BASE_URL}/clients/`, formaData);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+function ClientForm({ createClient }) {
+  const [formData, setFormData] = useState({});
 
   const formHandler = (event) => {
     setFormData((prev) => {
@@ -28,7 +16,7 @@ function ClientForm() {
   return (
     <div className="form">
       <h2>Create Client</h2>
-      <form action="">
+      <form action="" autoComplete="off">
         <div className="input-groups">
           <label htmlFor="">Firstname</label>
           <input
@@ -71,7 +59,13 @@ function ClientForm() {
             onChange={formHandler}
             required
           />
-          <button className="submit" onClick={createClient}>
+          <button
+            className="submit"
+            onClick={(event) => {
+              createClient(formData);
+              event.preventDefault();
+            }}
+          >
             Submit
           </button>
         </div>
